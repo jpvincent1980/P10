@@ -1,14 +1,25 @@
-from django.contrib.auth import views, authenticate, login
+from django.contrib.auth import views
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
 
 from .forms import SignupForm
 from .models import CustomUser
 
 
 # Create your views here.
+def test_view(request):
+    if request.user.is_authenticated:
+        return HttpResponse(f"Utilisateur {request.user.username} connecté !")
+    return HttpResponse("Utilisateur non connecté ...")
+
+
 class LoginView(views.LoginView):
+
+    def form_valid(self, form):
+        return super(LoginView, self).form_valid(form)
+
+
+class LogoutView(views.LogoutView):
     pass
 
 
@@ -23,12 +34,15 @@ class SignupView(views.FormView):
     def post(self, request, *args, **kwargs):
         form = SignupForm(request.POST)
         if form.is_valid():
+            password = request.POST.get("password1")
             user = CustomUser.objects.create(first_name=request.POST.get("first_name"),
                                              last_name=request.POST.get("last_name"),
                                              email=request.POST.get("email"),
                                              username=request.POST.get("email"),
-                                             password=request.POST.get("password1")
+                                             password=password
                                              )
+            user.set_password(password)
+            user.save()
             return redirect("projects-list")
         else:
             context = {"form": form}
