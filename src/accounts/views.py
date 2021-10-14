@@ -7,10 +7,8 @@ from .models import CustomUser
 
 
 # Create your views here.
-def test_view(request):
-    if request.user.is_authenticated:
-        return HttpResponse(f"Utilisateur {request.user.username} connecté !")
-    return HttpResponse("Utilisateur non connecté ...")
+def redirection_view(request):
+    return redirect("/api/login/")
 
 
 class LoginView(views.LoginView):

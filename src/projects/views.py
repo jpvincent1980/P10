@@ -1,13 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated
 
 from accounts.permissions import IsAuthor, IsContributor
 from .models import Project, Issue, Comment
-from accounts.models import CustomUser, Contributor
+from accounts.models import Contributor
 from .serializers import ProjectSerializer, IssueSerializer, CommentSerializer
-from accounts.serializers import CustomUserSerializer, ContributorSerializer
+from accounts.serializers import ContributorSerializer
 
 
 # Create your views here.
@@ -19,8 +19,7 @@ class ProjectViewset(ModelViewSet):
         if self.action in ("list", "create"):
             self.permission_classes = [IsAuthenticated]
         elif self.action in ("retrieve", "update", "partial_update", "destroy"):
-            self.permission_classes = [IsAuthenticated, IsAuthor] and \
-                                      [IsAuthenticated, IsContributor]
+            self.permission_classes = [IsAuthenticated, IsAuthor]
         return super(self.__class__, self).get_permissions()
 
     def get_queryset(self):
