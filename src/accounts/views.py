@@ -1,4 +1,4 @@
-from django.contrib.auth import views
+from django.contrib.auth import views, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
@@ -9,16 +9,6 @@ from .models import CustomUser
 # Create your views here.
 def redirection_view(request):
     return redirect("/api/login/")
-
-
-class LoginView(views.LoginView):
-
-    def form_valid(self, form):
-        return super(LoginView, self).form_valid(form)
-
-
-class LogoutView(views.LogoutView):
-    pass
 
 
 class SignupView(views.FormView):

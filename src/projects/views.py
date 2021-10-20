@@ -1,3 +1,5 @@
+from itertools import chain
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -23,7 +25,13 @@ class ProjectViewset(ModelViewSet):
         return super(self.__class__, self).get_permissions()
 
     def get_queryset(self):
-        return Project.objects.all()
+        if self.action in ("list", "create"):
+            author_projects = Project.objects.filter(author_user_id=self.request.user)
+            contributor_projects = Project.objects.filter(contributors=self.request.user)
+            user_projects = chain(author_projects, contributor_projects)
+        else:
+            user_projects = Project.objects.all()
+        return user_projects
 
 
 class ContributorViewset(ModelViewSet):
@@ -31,9 +39,9 @@ class ContributorViewset(ModelViewSet):
     serializer_class = ContributorSerializer
 
     def get_permissions(self):
-        if self.action in ("list", "create"):
-            self.permission_classes = [IsAuthenticated, IsContributor]
-        elif self.action in ("retrieve", "destroy"):
+        if self.action in ("list",):
+            self.permission_classes = [IsAuthenticated, IsContributor|IsAuthor]
+        elif self.action in ("create", "retrieve", "update", "partial_update", "destroy"):
             self.permission_classes = [IsAuthenticated, IsAuthor]
         return super(self.__class__, self).get_permissions()
 
@@ -58,13 +66,12 @@ class IssueViewset(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ("list", "create"):
-            self.permission_classes = [IsAuthenticated, IsContributor]
+            self.permission_classes = [IsAuthenticated, IsContributor|IsAuthor]
         elif self.action in ("retrieve", "update", "partial_update", "destroy"):
             self.permission_classes = [IsAuthenticated, IsAuthor]
         return super(self.__class__, self).get_permissions()
 
     def get_queryset(self):
-        print(self.kwargs)
         return Issue.objects.filter(project_id=self.kwargs["project_pk"])
 
 
@@ -74,11 +81,10 @@ class CommentViewset(ModelViewSet):
 
     def get_permissions(self):
         if self.action in ("list", "create"):
-            self.permission_classes = [IsAuthenticated, IsContributor]
+            self.permission_classes = [IsAuthenticated, IsContributor|IsAuthor]
         elif self.action in ("retrieve", "update", "partial_update", "destroy"):
             self.permission_classes = [IsAuthenticated, IsAuthor]
         return super(self.__class__, self).get_permissions()
 
     def get_queryset(self):
-        print(self.kwargs)
         return Comment.objects.filter(issue_id=self.kwargs["issue_pk"])
