@@ -10,7 +10,7 @@ Le langage utilisé est Python et les frameworks sont Django et Django-Rest Fram
 
 ## Documentation
 
-La documentation de l'API SoftDesk est disponible en cliquant sur le logo ci-dessous:
+La documentation (en anglais) de l'API SoftDesk est disponible en cliquant sur le logo ci-dessous:
 <a href="https://documenter.getpostman.com/view/16167513/UV5XgcBE">
 <img src="https://www.postman.com/assets/logos/pm-orange-logo-horiz.svg" />
 </a>
