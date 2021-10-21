@@ -7,8 +7,7 @@ from projects.models import Project, Issue, Comment
 class IsContributor(BasePermission):
     """
     Custom permission to allow contributors to a project to create and read
-    issues linked to a project, and to create and read comments linked to a
-    project
+    issues and/or comments linked to a project
     """
     def has_permission(self, request, view):
         if view.kwargs.get("project_pk", None):
