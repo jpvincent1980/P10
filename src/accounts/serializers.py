@@ -4,6 +4,9 @@ from .models import CustomUser, Contributor
 
 
 class CustomUserSerializer(ModelSerializer):
+    """
+    A custom ModelSerializer that serializes CustomUser instances.
+    """
 
     class Meta:
         model = CustomUser
@@ -11,6 +14,9 @@ class CustomUserSerializer(ModelSerializer):
 
 
 class ContributorSerializer(ModelSerializer):
+    """
+    A custom ModelSerializer that serializes Contributor instances.
+    """
 
     class Meta:
         model = Contributor

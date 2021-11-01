@@ -8,18 +8,30 @@ from .models import CustomUser
 
 # Create your views here.
 def redirection_view(request):
+    """
+    A FBV (Function-Based View) redirecting index page to the login page.
+    """
     return redirect("/api/login/")
 
 
 class SignupView(views.FormView):
+    """
+    A custom FormView for new users to sign up to the application.
+    """
     form_class = SignupForm
 
     def get_context_data(self, **kwargs):
+        """
+        A method overriding the default FormView context data.
+        """
         form = SignupForm
         context = {"form": form, "next": "/api/projects/"}
         return context
 
     def post(self, request, *args, **kwargs):
+        """
+        A method overriding the default FormView post() method.
+        """
         form = SignupForm(request.POST)
         if form.is_valid():
             password = request.POST.get("password1")

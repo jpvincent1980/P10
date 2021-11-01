@@ -6,6 +6,10 @@ from .models import CustomUser
 
 
 class SignupForm(UserCreationForm):
+    """
+    A custom UserCreationForm for new users to fill in to be able to sign up
+    to the application.
+    """
     first_name = forms.CharField(max_length=20,
                                  required=False,
                                  label="Prénom")
@@ -24,6 +28,10 @@ class SignupForm(UserCreationForm):
         fields = ["first_name", "last_name", "email", "password1", "password2"]
 
     def clean(self):
+        """
+        A method overriding the default BaseForm clean() method to check that
+        password and confirmed password match.
+        """
         cleaned_data = super(SignupForm, self).clean()
         password1 = cleaned_data.get("password1")
         password2 = cleaned_data.get("password2")
@@ -32,6 +40,9 @@ class SignupForm(UserCreationForm):
         return cleaned_data
 
     def is_valid(self):
+        """
+        A method overriding the default BaseForm is_valid() method.
+        """
         valid = super(SignupForm, self).is_valid()
         if valid:
             return True

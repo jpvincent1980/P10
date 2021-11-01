@@ -4,6 +4,9 @@ from .models import Project, Issue, Comment
 
 
 class ProjectSerializer(ModelSerializer):
+    """
+    A custom ModelSerializer that serializes Project instances.
+    """
 
     class Meta:
         model = Project
@@ -11,6 +14,9 @@ class ProjectSerializer(ModelSerializer):
 
 
 class IssueSerializer(ModelSerializer):
+    """
+    A custom ModelSerializer that serializes Issue instances.
+    """
 
     class Meta:
         model = Issue
@@ -18,6 +24,9 @@ class IssueSerializer(ModelSerializer):
 
 
 class CommentSerializer(ModelSerializer):
+    """
+    A custom ModelSerializer that serializes Comment instances.
+    """
 
     class Meta:
         model = Comment
