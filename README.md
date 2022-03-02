@@ -2,6 +2,8 @@
 
 ![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)
 
+![alt text](https://github.com/jpvincent1980/P10/blob/main/Screenshot.png)
+
 # Projet P10
 
 Créez une API sécurisée RESTful en utilisant Django REST.
