@@ -28,7 +28,9 @@ class ProjectViewset(ModelViewSet):
         """
         if self.action in ("list", "create"):
             self.permission_classes = [IsAuthenticated]
-        elif self.action in ("retrieve", "update", "partial_update", "destroy"):
+        elif self.action in ("retrieve",):
+            self.permission_classes = [IsAuthenticated, IsContributor]
+        elif self.action in ("update", "partial_update", "destroy"):
             self.permission_classes = [IsAuthenticated, IsAuthor]
         return super(self.__class__, self).get_permissions()
 
