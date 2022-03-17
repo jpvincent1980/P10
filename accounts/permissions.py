@@ -1,4 +1,4 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 from projects.models import Project, Issue, Comment
 
@@ -19,6 +19,11 @@ class IsContributor(BasePermission):
         return request.user in Project.objects.get(pk=view.kwargs.get(look_for,
                                                                       None)).contributors.all()
 
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return request.user in obj.contributors
+
 
 class IsAuthor(BasePermission):
     """
@@ -38,3 +43,8 @@ class IsAuthor(BasePermission):
         else:
             look_for = "pk"
         return Project.objects.get(pk=view.kwargs.get(look_for, None)).author_user_id.pk == request.user.pk
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in SAFE_METHODS:
+            return True
+        return obj.author_user_id == request.user
