@@ -50,7 +50,7 @@ puis rendez-vous à l'adresse ci-dessous dans votre navigateur :
 
 Vous trouverez ci-dessous un compte utilisateur disponible pour tester l'API SoftDesk :
 
-email -> ``johnsteed@hotmail.com`` / Mot de Passe -> ``theavengers``
+email -> ``User01@hotmail.fr`` / Mot de Passe -> ``azerty01``
 
 
 ## IDE utilisé
