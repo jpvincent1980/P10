@@ -20,11 +20,11 @@ comments_router.register(r"comments", CommentViewset, basename="comments")
 
 urlpatterns = [
     path('', redirection_view, name="index_redirection"),
+    path('api/', include("accounts.urls")),
     path('api/admin/', admin.site.urls),
     path('api/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="token_refresh"),
-    path('api/', include("accounts.urls")),
     path('api/', include(router.urls)),
     path('api/', include(projects_router.urls)),
     path('api/', include(issues_router.urls)),
