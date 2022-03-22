@@ -4,6 +4,14 @@
 
 ![alt text](https://github.com/jpvincent1980/P10/blob/main/Screenshot.png)
 
+
+Une version de l'application est déployée sur Heroku. 
+
+Vous pouvez y accéder en cliquant sur le logo ci-dessous:
+
+<a href="https://litreview-jpvincent.herokuapp.com"><img src="https://github.com/jpvincent1980/jpvincent1980/blob/main/assets/img/logo-heroku.png" alt="Logo Twitter" /></a>
+
+
 # Projet P10
 
 Créez une API sécurisée RESTful en utilisant Django REST.
